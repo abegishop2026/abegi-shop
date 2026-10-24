@@ -1,74 +1,36 @@
-<!DOCTYPE html>
-<html lang="bn">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>আবেগী স্বপ্ন | অনলাইন শপ</title>
-<style>
-*{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#fffaf7;color:#292333}
-header{background:#6d285f;color:white;padding:22px 16px;text-align:center}
-header h1{margin:0 0 8px;font-size:30px}
-header p{margin:0}
-nav{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;padding:14px;background:#f4e6f0}
-nav a{color:#6d285f;text-decoration:none;font-weight:bold}
-main{max-width:1000px;margin:auto;padding:20px}
-.hero{background:#f2dce9;padding:26px 18px;border-radius:16px;text-align:center}
-.hero h2{margin-top:0}
-.search{width:100%;padding:13px;border:1px solid #ddd;border-radius:10px;margin:18px 0;font-size:16px}
-.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:14px}
-.card{background:white;border:1px solid #eee;border-radius:14px;padding:12px;box-shadow:0 3px 10px #0000000b}
-.pic{height:115px;background:#f7edf4;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:44px}
-.card h3{font-size:16px;margin:12px 0 6px}
-.price{color:#8b286b;font-weight:bold}
-button{background:#762d65;color:white;border:0;border-radius:9px;padding:11px;cursor:pointer}
-.card button{width:100%}
-section{margin:24px 0}
-form{display:grid;gap:12px}
-input,textarea{width:100%;padding:13px;border:1px solid #ddd;border-radius:9px;font:inherit}
-footer{text-align:center;background:#2d1d2b;color:white;padding:22px;margin-top:25px}
-.small{font-size:13px;color:#777}
-</style>
-</head>
-<body>
-<header><h1>আবেগী স্বপ্ন</h1><p>আপনার পছন্দের কেনাকাটা, এখন এক জায়গায়</p></header>
-<nav><a href="#categories">পণ্যের বিভাগ</a><a href="#products">পণ্য</a><a href="#cart">কার্ট</a><a href="#order">অর্ডার</a></nav>
-<main>
-<div class="hero"><h2>স্বাগতম আবেগী স্বপ্নে!</h2><p>ফ্যাশন, ব্যাগ, কসমেটিকস, জুতা ও উপহারের কালেকশন</p><button onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">পণ্য দেখুন</button></div>
-<section id="categories"><h2>পণ্যের বিভাগ</h2><p>👗 জামাকাপড়　👜 ব্যাগ　💄 কসমেটিকস　👟 জুতা　🎁 গিফট</p></section>
-<section id="products"><h2>আমাদের পণ্য</h2><input class="search" id="search" placeholder="পণ্য খুঁজুন..." oninput="render()"><div class="products" id="list"></div></section>
-<section id="cart"><h2>আপনার কার্ট (<span id="count">0</span>)</h2><div id="cartitems">এখনো কোনো পণ্য যোগ করেননি।</div><p><b>মোট: ৳<span id="total">0</span></b></p><button onclick="document.getElementById('order').scrollIntoView({behavior:'smooth'})">অর্ডার করতে এগিয়ে যান</button></section>
-<section id="order"><h2>অর্ডার ফর্ম</h2><p class="small">আপনার তথ্য পূরণ করে WhatsApp-এ অর্ডার পাঠাতে পারবেন।</p><form id="form"><input id="name" placeholder="আপনার নাম" required><input id="phone" placeholder="মোবাইল নম্বর" required><textarea id="address" placeholder="সম্পূর্ণ ডেলিভারি ঠিকানা" required rows="3"></textarea><button type="submit">WhatsApp-এ অর্ডার পাঠান</button></form><p class="small">দোকানের WhatsApp নম্বর এখনো সেট করা হয়নি। পরে আপনার নম্বর বসাতে হবে।</p></section>
-</main>
-<footer><b>আবেগী স্বপ্ন</b><p>আপনার আস্থাই আমাদের অনুপ্রেরণা ❤️</p></footer>
-<script>
-const products=[
-{id:1,name:'স্টাইলিশ পোশাক',price:650,emoji:'👗'},
-{id:2,name:'ফ্যাশন ব্যাগ',price:550,emoji:'👜'},
-{id:3,name:'বিউটি কসমেটিকস',price:350,emoji:'💄'},
-{id:4,name:'ট্রেন্ডি জুতা',price:850,emoji:'👟'},
-{id:5,name:'স্পেশাল গিফট',price:450,emoji:'🎁'},
-{id:6,name:'ফ্যাশন অ্যাকসেসরিজ',price:250,emoji:'⌚'}
-];
-let cart=[];
-function render(){
-const q=document.getElementById('search').value.toLowerCase();
-document.getElementById('list').innerHTML=products.filter(p=>p.name.toLowerCase().includes(q)).map(p=>'<div class="card"><div class="pic">'+p.emoji+'</div><h3>'+p.name+'</h3><p class="price">৳'+p.price+'</p><button onclick="add('+p.id+')">কার্টে যোগ করুন</button></div>').join('');
-document.getElementById('count').textContent=cart.reduce((s,p)=>s+p.qty,0);
-document.getElementById('cartitems').innerHTML=cart.length?cart.map(p=>'<p>'+p.name+' × '+p.qty+' — ৳'+p.price*p.qty+' <button onclick="removeItem('+p.id+')">বাদ দিন</button></p>').join(''):'এখনো কোনো পণ্য যোগ করেননি।';
-document.getElementById('total').textContent=cart.reduce((s,p)=>s+p.price*p.qty,0);
-}
-function add(id){let p=cart.find(x=>x.id===id);if(p)p.qty++;else cart.push({...products.find(x=>x.id===id),qty:1});render()}
-function removeItem(id){cart=cart.filter(p=>p.id!==id);render()}
-document.getElementById('form').addEventListener('submit',function(e){
-e.preventDefault();
-const phoneNumber=''; 
-if(!phoneNumber){alert('WhatsApp অর্ডার চালু করতে দোকানের WhatsApp নম্বর কোডে বসাতে হবে। আপাতত আপনার কার্ট ও অর্ডার ফর্ম প্রস্তুত।');return;}
-const lines=cart.map(p=>p.name+' x '+p.qty+' = ৳'+p.price*p.qty).join('\n');
-const msg='নতুন অর্ডার - আবেগী স্বপ্ন\nনাম: '+document.getElementById('name').value+'\nফোন: '+document.getElementById('phone').value+'\nঠিকানা: '+document.getElementById('address').value+'\n'+lines+'\nমোট: ৳'+cart.reduce((s,p)=>s+p.price*p.qty,0);
-window.open('https://wa.me/'+phoneNumber+'?text='+encodeURIComponent(msg),'_blank');
-});
-render();
-</script>
-</body>
-</html>
+চলুন, এবার আপনার “আবেগী স্বপ্ন” ওয়েবসাইটটিকে আরও প্রিমিয়াম, আধুনিক ও আকর্ষণীয় অনলাইন শপে পরিণত করি। ❤️
+
+আমরা আপনার বর্তমান ওয়েবসাইটটিই আপডেট করব—নতুন করে শুরু করতে হবে না। Android ফোন দিয়ে কাজ করবেন, আর পরে একই GitHub অ্যাকাউন্ট ব্যবহার করে ল্যাপটপেও ওয়েবসাইটটি সম্পাদনা করতে পারবেন।
+
+### নতুন ডিজাইনে যা থাকবে
+
+![e-commerce store
+ – Ovo signature](https://images.openai.com/static-rsc-4/C5qeZMIRjyfd1FR0XugUrM7rVEcvKyIt62SDIH7hWzAfQh_fsHyhmBnJBC4-5j3ad1KObXYJ2qP8zvfKbYIIrUQV3WKvPNMLqnVwvByqE8-km2lApUGY3veWS5WitbhVQJDmvBdvA96-ESYDwY4pMw4val36W_hscoeRrUSeHHcn_EPhCwwL-of3Y-jYPfv1?purpose=fullsize)
+
+প্রিমিয়াম হোমপেজ
+
+“আবেগী স্বপ্নে আপনাকে স্বাগতম”, সুন্দর ব্যানার, সার্চ বক্স ও পণ্য দেখার বোতাম।
+
+![Mykiya | Shop Electronics, Fashion & Groceries | Sell & Grow Your Business](https://images.openai.com/static-rsc-4/1f0-yZHJa3AlmXgDhTPHM66gWGyMh-6RaA0MDPy4RyeVt9wEA_l1bVJV68aw3fO-VkL0K0I65e5AtSgQWpGtnvxoGgMScvQEaCDWlROPONbwqzX8Dcqk5MBd_C3LwUSRajbJKTxpO0H-cSc3GPBM7cstuv4yfTH8gLrt1EowzZ4EK5njOmCAn_mfXIk_2zhP?purpose=fullsize)
+
+৭টি পণ্যের বিভাগ
+
+জামাকাপড়, ব্যাগ, জুতা, কসমেটিকস, গিফট, ইলেকট্রনিকস ও অন্যান্য পণ্য।
+
+![Ecommerce Mobile App Home, Product Details UI :: Behance](https://images.openai.com/static-rsc-4/XGr6C6Yspg0vAv0RJWpTt3HAQwIgbjsDpvauy-gkTDyAfMct2JsyQ_j5bAaw0AOqO6R4Zpun4COICWVG3xYF8-AWGg-iN0KFz8laHvJtDNF7CCadQex9aGis6zYPWV6m7RTMb6PW2jHNF-ZniVywkBowSJLVphkeEO4LDNNjztH1YOy92lGTkiYIEI0HzXL7?purpose=fullsize)
+
+কার্ট ও অর্ডার ব্যবস্থা
+
+পণ্য খোঁজা, কার্টে যোগ করা, মোট দাম হিসাব, নাম-ফোন-ঠিকানা দিয়ে অর্ডার এবং WhatsApp-এ পাঠানোর ব্যবস্থা।
+
+একটি গুরুত্বপূর্ণ বিষয়: আপাতত নমুনা পণ্য থাকবে। আসল পণ্যের ছবি, দাম ও আপনার দোকানের WhatsApp নম্বর বসানোর পরেই ক্রেতাদের কাছে অর্ডার নেওয়ার জন্য প্রস্তুত হবে। ওয়েবসাইটে অর্ডার ফর্ম থাকলেই অর্ডারের তথ্য স্বয়ংক্রিয়ভাবে সংরক্ষিত হয় না—সেটির জন্য পরে আলাদা ব্যবস্থা লাগতে পারে।
+
+### ধাপ ১ — নতুন কোড কপি করুন
+
+আপনার বর্তমান ওয়েবসাইটের `index.html` ফাইলটি সম্পূর্ণ বদলে নিচের নতুন ডিজাইনটি বসাব।
+
+এই সংস্করণে থাকবে প্রিমিয়াম বেগুনি-গোলাপি ডিজাইন, মোবাইল-ফ্রেন্ডলি পণ্য কার্ড, বিভাগ অনুযায়ী ফিল্টার, সার্চ, কার্ট, মোট দাম এবং অর্ডার ফর্ম।
+
+Abegi Shop — নতুন ওয়েবসাইট কোড
+
+সম্পূর্ণ HTML, CSS ও JavaScript এক ফাইলে
