@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#e50068">
+<title>Abegi Shop — Admin Panel</title>
+<style>
+:root{--pink:#e50068;--navy:#0b1733;--ink:#14213d;--muted:#647084;--line:#e8eaf0;--bg:#f7f8fc;--white:#fff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Arial,"Noto Sans Bengali",sans-serif;line-height:1.5}
+header{background:var(--navy);color:#fff;padding:18px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+header h1{font-size:20px;margin:0}header p{font-size:12px;margin:4px 0 0;color:#d4dced}
+button,input{font:inherit}button{cursor:pointer;border:0;border-radius:10px;padding:10px 14px;font-weight:700}
+.btn{background:var(--pink);color:#fff}.btn.secondary{background:#fff;color:var(--navy);border:1px solid var(--line)}.btn.danger{background:#b42318;color:#fff}
+main{max-width:1100px;margin:24px auto;padding:0 14px}.panel{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px;box-shadow:0 5px 20px #14213d0a;margin-bottom:18px}
+h2{margin:0 0 14px;font-size:20px}.hint{color:var(--muted);font-size:13px}
+#loginPanel{max-width:440px;margin:7vh auto}.field{display:grid;gap:6px;margin:12px 0}.field label{font-size:13px;font-weight:700}.field input{width:100%;padding:12px;border:1px solid #d9deea;border-radius:10px}
+.status{padding:10px 12px;border-radius:10px;background:#fff0f7;color:#8b0044;font-size:13px;margin:10px 0;white-space:pre-wrap}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:18px}.stat{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px}.stat small{color:var(--muted)}.stat strong{display:block;font-size:25px;margin-top:5px}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0}.toolbar input,.toolbar select{padding:10px;border:1px solid var(--line);border-radius:10px;background:#fff;min-width:150px}
+.order{border:1px solid var(--line);border-radius:13px;padding:16px;margin:12px 0;background:#fff}.order-head{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:10px;margin-bottom:10px}.order-head strong{font-size:16px}.pill{display:inline-block;background:#fff0f7;color:#a00050;padding:4px 9px;border-radius:20px;font-size:12px;font-weight:700}
+.order-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;font-size:13px}.order-grid b{color:#303b52}.items{margin:12px 0;padding:12px;background:#f8f9fc;border-radius:10px;font-size:13px}.order-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:12px}.order-actions select{padding:9px;border:1px solid var(--line);border-radius:9px}
+.hidden{display:none!important}.empty{text-align:center;color:var(--muted);padding:30px}.footer-note{text-align:center;color:var(--muted);font-size:12px;padding:15px}
+@media(max-width:600px){.stats{grid-template-columns:1fr 1fr}.order-grid{grid-template-columns:1fr}.panel{padding:15px}header{padding:15px}}
+</style>
+</head>
+<body>
+<header>
+  <div><h1>🛍️ ABEGI SHOP — Admin Panel</h1><p>ব্যক্তিগত অর্ডার ব্যবস্থাপনা</p></div>
+  <div id="topActions" class="hidden"><button class="btn secondary" id="viewShop">ওয়েবসাইট দেখুন</button> <button class="btn" id="logoutBtn">লগআউট</button></div>
+</header>
+<main>
+  <section class="panel" id="loginPanel">
+    <h2>অ্যাডমিন লগইন</h2>
+    <p class="hint">শুধু অনুমোদিত অ্যাডমিন অ্যাকাউন্ট ব্যবহার করুন।</p>
+    <form id="loginForm">
+      <div class="field"><label for="email">অ্যাডমিন ইমেইল</label><input id="email" type="email" autocomplete="username" required></div>
+      <div class="field"><label for="password">পাসওয়ার্ড</label><input id="password" type="password" autocomplete="current-password" required></div>
+      <button class="btn" type="submit" style="width:100%">লগইন করুন</button>
+    </form>
+    <div id="loginStatus" class="status hidden" role="status"></div>
+  </section>
+
+  <section id="dashboard" class="hidden">
+    <div class="stats">
+      <div class="stat"><small>মোট অর্ডার</small><strong id="totalCount">0</strong></div>
+      <div class="stat"><small>নতুন অর্ডার</small><strong id="newCount">0</strong></div>
+      <div class="stat"><small>সম্পন্ন অর্ডার</small><strong id="doneCount">0</strong></div>
+    </div>
+    <div class="panel">
+      <h2>কাস্টমারের অর্ডার</h2>
+      <p class="hint">অর্ডারের স্ট্যাটাস পরিবর্তন করলে তা ডেটাবেজে সংরক্ষিত হবে।</p>
+      <div class="toolbar">
+        <input id="searchOrders" type="search" placeholder="নাম বা ফোন দিয়ে খুঁজুন">
+        <select id="statusFilter">
+          <option value="all">সব স্ট্যাটাস</option><option value="new">নতুন</option><option value="confirmed">নিশ্চিত</option><option value="processing">প্রসেসিং</option><option value="shipped">পাঠানো হয়েছে</option><option value="completed">সম্পন্ন</option><option value="cancelled">বাতিল</option>
+        </select>
+        <button class="btn secondary" id="refreshBtn">রিফ্রেশ</button>
+      </div>
+      <div id="dataStatus" class="status">অর্ডার লোড হচ্ছে…</div>
+      <div id="ordersList"></div>
+    </div>
+  </section>
+  <p class="footer-note">Abegi Shop Admin • এই পেজের ঠিকানা গোপন রাখা নিরাপত্তার বিকল্প নয়; Firebase Rules-ই আসল অনুমতি নিয়ন্ত্রণ করে।</p>
+</main>
+
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+<script>
+/* একই Firebase config মূল ওয়েবসাইটেও ব্যবহার করবেন */
+const firebaseConfig = {
+  apiKey: "AIzaSyAdTN1OMd2G9M2CILyXNVM6hnIxpORtV2nA",
+  authDomain: "abegi-shop-cf553.firebaseapp.com",
+  projectId: "abegi-shop-cf553",
+  storageBucket: "abegi-shop-cf553.firebasestorage.app",
+  messagingSenderId: "608384728296",
+  appId: "1:608384728296:web:1ce5845591400cdd3f1d5d",
+  measurementId: "G-9G0V8HYW4D"
+};
+const ADMIN_UID = "KWXRMMgfmBdlCXJ0mDABOSerat83";
+if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.firestore();
+const $ = id => document.getElementById(id);
+let allOrders = [];
+let unsubscribeOrders = null;
+
+function showStatus(id, msg, isError=false) {
+  const el = $(id); el.textContent = msg; el.classList.remove("hidden");
+  el.style.background = isError ? "#fff0ef" : "#fff0f7";
+  el.style.color = isError ? "#a21b12" : "#8b0044";
+}
+function safeText(value) {
+  return String(value ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+}
+function formatMoney(n) { return "৳" + Number(n || 0).toLocaleString("en-BD"); }
+function formatDate(ts) {
+  try {
+    const d = ts && ts.toDate ? ts.toDate() : (ts ? new Date(ts) : null);
+    return d && !isNaN(d) ? d.toLocaleString("bn-BD") : "সময় পাওয়া যায়নি";
+  } catch { return "সময় পাওয়া যায়নি"; }
+}
+const statusLabels = {new:"নতুন",confirmed:"নিশ্চিত",processing:"প্রসেসিং",shipped:"পাঠানো হয়েছে",completed:"সম্পন্ন",cancelled:"বাতিল"};
+function renderOrders() {
+  const query = $("searchOrders").value.trim().toLowerCase();
+  const filter = $("statusFilter").value;
+  const filtered = allOrders.filter(o => {
+    const d = o.data;
+    const matches = `${d.name||""} ${d.phone||""}`.toLowerCase().includes(query);
+    return matches && (filter === "all" || (d.status || "new") === filter);
+  });
+  $("totalCount").textContent = allOrders.length;
+  $("newCount").textContent = allOrders.filter(o => (o.data.status || "new") === "new").length;
+  $("doneCount").textContent = allOrders.filter(o => o.data.status === "completed").length;
+  if (!filtered.length) { $("ordersList").innerHTML = '<div class="empty">এই ফিল্টারে কোনো অর্ডার পাওয়া যায়নি।</div>'; return; }
+  $("ordersList").innerHTML = filtered.map(({id,data:d}) => {
+    const items = Array.isArray(d.items) ? d.items.map(it =>
+      `<div>${safeText(it.name || "পণ্য")} × ${safeText(it.qty || 1)} — <b>${formatMoney(it.lineTotal ?? ((it.price||0)*(it.qty||1)))}</b></div>`
+    ).join("") : "পণ্যের বিবরণ নেই";
+    const status = statusLabels[d.status] ? d.status : "new";
+    return `<article class="order">
+      <div class="order-head"><div><strong>অর্ডার #${safeText(id.slice(0,8).toUpperCase())}</strong><div class="hint">${safeText(formatDate(d.createdAt))}</div></div><span class="pill">${safeText(statusLabels[status])}</span></div>
+      <div class="order-grid">
+        <div><b>নাম:</b> ${safeText(d.name)}</div><div><b>ফোন:</b> ${safeText(d.phone)}</div>
+        <div><b>এলাকা:</b> ${safeText(d.area)}</div><div><b>পেমেন্ট:</b> ${safeText(d.payment)}</div>
+        <div style="grid-column:1/-1"><b>ঠিকানা:</b> ${safeText(d.address)}</div>
+        <div><b>সাবটোটাল:</b> ${formatMoney(d.subtotal)}</div><div><b>নোট:</b> ${safeText(d.note || "নেই")}</div>
+      </div>
+      <div class="items"><b>পণ্যসমূহ</b>${items}</div>
+      <div class="order-actions"><label for="status-${safeText(id)}">স্ট্যাটাস:</label>
+        <select id="status-${safeText(id)}" data-status-id="${safeText(id)}">
+          ${Object.entries(statusLabels).map(([v,l])=>`<option value="${v}" ${v===status?"selected":""}>${l}</option>`).join("")}
+        </select>
+        <button class="btn" data-save-id="${safeText(id)}">স্ট্যাটাস সেভ</button>
+      </div>
+    </article>`;
+  }).join("");
+}
+function startOrdersListener() {
+  if (unsubscribeOrders) unsubscribeOrders();
+  showStatus("dataStatus", "অর্ডার লোড হচ্ছে…");
+  unsubscribeOrders = db.collection("orders").orderBy("createdAt","desc").onSnapshot(snapshot => {
+    allOrders = snapshot.docs.map(doc => ({id:doc.id,data:doc.data()}));
+    $("dataStatus").classList.add("hidden");
+    renderOrders();
+  }, err => {
+    showStatus("dataStatus", "অর্ডার লোড করা যায়নি: " + err.message + "\nFirebase Firestore Rules এবং orders collection পরীক্ষা করুন।", true);
+  });
+}
+$("loginForm").addEventListener("submit", async e => {
+  e.preventDefault();
+  showStatus("loginStatus", "লগইন হচ্ছে…");
+  try { await auth.signInWithEmailAndPassword($("email").value.trim(), $("password").value); }
+  catch(err) { showStatus("loginStatus", "লগইন ব্যর্থ: ইমেইল/পাসওয়ার্ড পরীক্ষা করুন। (" + err.code + ")", true); }
+});
+auth.onAuthStateChanged(async user => {
+  if (!user) {
+    if (unsubscribeOrders) { unsubscribeOrders(); unsubscribeOrders = null; }
+    $("loginPanel").classList.remove("hidden"); $("dashboard").classList.add("hidden"); $("topActions").classList.add("hidden");
+    return;
+  }
+  if (user.uid !== ADMIN_UID) {
+    await auth.signOut();
+    showStatus("loginStatus", "এই অ্যাকাউন্ট অ্যাডমিন হিসেবে অনুমোদিত নয়।", true);
+    return;
+  }
+  $("loginPanel").classList.add("hidden"); $("dashboard").classList.remove("hidden"); $("topActions").classList.remove("hidden");
+  startOrdersListener();
+});
+$("logoutBtn").addEventListener("click", () => auth.signOut());
+$("viewShop").addEventListener("click", () => location.href = "./");
+$("refreshBtn").addEventListener("click", startOrdersListener);
+$("searchOrders").addEventListener("input", renderOrders);
+$("statusFilter").addEventListener("change", renderOrders);
+$("ordersList").addEventListener("click", async e => {
+  const btn = e.target.closest("[data-save-id]");
+  if (!btn) return;
+  const id = btn.getAttribute("data-save-id");
+  const select = document.querySelector(`[data-status-id="${CSS.escape(id)}"]`);
+  if (!select) return;
+  btn.disabled = true; btn.textContent = "সেভ হচ্ছে…";
+  try {
+    await db.collection("orders").doc(id).update({status: select.value});
+    showStatus("dataStatus", "অর্ডারের স্ট্যাটাস সেভ হয়েছে।");
+  } catch(err) {
+    showStatus("dataStatus", "স্ট্যাটাস সেভ হয়নি: " + err.message, true);
+  } finally { btn.disabled = false; btn.textContent = "স্ট্যাটাস সেভ"; }
+});
+</script>
+</body>
+</html>
