@@ -1,36 +1,432 @@
-চলুন, এবার আপনার “আবেগী স্বপ্ন” ওয়েবসাইটটিকে আরও প্রিমিয়াম, আধুনিক ও আকর্ষণীয় অনলাইন শপে পরিণত করি। ❤️
 
-আমরা আপনার বর্তমান ওয়েবসাইটটিই আপডেট করব—নতুন করে শুরু করতে হবে না। Android ফোন দিয়ে কাজ করবেন, আর পরে একই GitHub অ্যাকাউন্ট ব্যবহার করে ল্যাপটপেও ওয়েবসাইটটি সম্পাদনা করতে পারবেন।
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#24162e">
+<meta name="description" content="আবেগী স্বপ্ন — ফ্যাশন, গিফট ও পছন্দের পণ্যের অনলাইন শপ">
+<title>আবেগী স্বপ্ন | Premium Online Shop</title>
+<style>
+:root{--dark:#24162e;--purple:#65456f;--gold:#d6b477;--cream:#faf7f2;--white:#fff;--muted:#77717b;--line:#eee7ed}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--cream);color:var(--dark);font-family:Arial,"Noto Sans Bengali",sans-serif}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+a{text-decoration:none;color:inherit}
+.announcement{background:var(--dark);color:white;text-align:center;padding:9px;font-size:12px;letter-spacing:.4px}
+header{position:sticky;top:0;z-index:10;background:white;box-shadow:0 3px 20px #24162e0b}
+.header{max-width:1200px;margin:auto;padding:15px 20px;display:flex;align-items:center;gap:20px}
+.brand{display:flex;align-items:center;gap:10px;min-width:190px}
+.logo{width:45px;height:45px;border-radius:14px;background:var(--dark);color:var(--gold);display:grid;place-items:center;font-size:25px;font-weight:bold}
+.brand strong{display:block;font-size:19px}
+.brand small{display:block;color:var(--muted);font-size:9px;letter-spacing:2px;margin-top:3px}
+.search{display:flex;flex:1;border:1px solid var(--line);border-radius:30px;overflow:hidden;background:#faf8fb}
+.search input{min-width:0;width:100%;border:0;outline:0;background:transparent;padding:13px 17px}
+.search button{border:0;background:var(--purple);color:white;padding:0 18px}
+.cart-button{border:1px solid var(--line);border-radius:30px;padding:11px 14px;background:white;white-space:nowrap;color:var(--dark)}
+.count{display:inline-grid;place-items:center;background:var(--gold);border-radius:20px;min-width:21px;height:21px;font-size:12px;margin-left:3px}
+nav{border-top:1px solid #f4eff4}
+.nav{max-width:1200px;margin:auto;padding:12px 20px;display:flex;gap:25px;overflow:auto;white-space:nowrap;font-size:13px}
+.nav a:hover{color:var(--purple)}
+main{max-width:1200px;margin:auto;padding:22px}
+.hero{display:grid;grid-template-columns:1.1fr .9fr;min-height:380px;background:var(--dark);color:white;border-radius:23px;overflow:hidden}
+.hero-copy{padding:50px 42px;align-self:center}
+.kicker{color:var(--gold);font-size:11px;letter-spacing:3px}
+.hero h1{font-size:clamp(32px,4.7vw,55px);line-height:1.2;margin:19px 0}
+.hero p{font-size:14px;line-height:1.9;color:#e0d8e4;max-width:430px}
+.gold-button{display:inline-block;border:0;border-radius:7px;background:var(--gold);color:var(--dark);padding:14px 21px;font-weight:bold;margin-top:12px}
+.hero-photo{position:relative;min-height:320px;background:#49364d}
+.hero-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.87}
+.hero-photo:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--dark),transparent 55%)}
+.benefits{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:22px 0 40px}
+.benefit{background:white;border:1px solid var(--line);border-radius:13px;padding:17px 12px;display:flex;align-items:center;gap:11px}
+.benefit .icon{font-size:24px}
+.benefit b{font-size:12px;display:block}
+.benefit small{font-size:11px;color:var(--muted);display:block;margin-top:5px}
+.section-heading{display:flex;justify-content:space-between;align-items:end;gap:15px;margin:38px 0 18px}
+.section-heading h2{font-size:26px;margin:0 0 7px}
+.section-heading p{font-size:13px;color:var(--muted);margin:0}
+.categories{display:grid;grid-template-columns:repeat(7,1fr);gap:12px}
+.category{background:white;border:1px solid var(--line);border-radius:14px;padding:17px 7px;text-align:center;color:var(--dark);transition:.2s}
+.category:hover,.category.active{border-color:var(--gold);transform:translateY(-3px);box-shadow:0 7px 20px #24162e0c}
+.category-icon{width:57px;height:57px;border-radius:50%;background:#f6eff6;display:grid;place-items:center;margin:0 auto 11px;font-size:27px}
+.category b{font-size:12px}
+.filters{display:flex;align-items:center;flex-wrap:wrap;gap:9px;margin:20px 0}
+.filter{border:1px solid var(--line);background:white;border-radius:24px;padding:10px 14px;font-size:12px;color:var(--dark)}
+.filter.active{background:var(--dark);color:white}
+#sort{margin-left:auto;border:1px solid var(--line);background:white;border-radius:24px;padding:10px;font-size:12px;color:var(--dark)}
+.products{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:17px}
+.product{background:white;border:1px solid var(--line);border-radius:15px;overflow:hidden;transition:.2s}
+.product:hover{transform:translateY(-4px);box-shadow:0 12px 25px #24162e10}
+.product-photo{height:230px;background:#eee5ed;position:relative}
+.product-photo img{width:100%;height:100%;object-fit:cover;display:block}
+.tag{position:absolute;top:11px;left:11px;background:white;border-radius:20px;padding:6px 9px;font-size:10px}
+.product-info{padding:14px}
+.product-category{font-size:10px;color:var(--purple);letter-spacing:.6px}
+.product h3{font-size:14px;line-height:1.6;min-height:43px;margin:8px 0}
+.price{font-size:18px;font-weight:bold}
+.old-price{font-size:12px;color:#a8a0a9;text-decoration:line-through;font-weight:normal;margin-left:6px}
+.add-button{width:100%;padding:11px;margin-top:12px;border:1px solid var(--dark);background:white;color:var(--dark);border-radius:7px;font-size:12px;font-weight:bold}
+.add-button:hover{background:var(--dark);color:white}
+.empty{grid-column:1/-1;text-align:center;padding:40px;background:white;border-radius:14px;color:var(--muted)}
+.promo{margin:44px 0;background:#eee4ed;border-radius:20px;padding:34px;display:flex;justify-content:space-between;align-items:center;gap:20px}
+.promo h2{margin:0 0 10px;font-size:26px}
+.promo p{margin:0;font-size:13px;line-height:1.8;color:#665969}
+.promo .gold-button{background:var(--dark);color:white}
+footer{background:var(--dark);color:white;margin-top:48px}
+.footer-grid{max-width:1200px;margin:auto;padding:40px 22px 25px;display:grid;grid-template-columns:2fr 1fr 1fr;gap:30px}
+footer h3{color:var(--gold);margin-top:0}
+footer p,footer a{font-size:13px;line-height:1.9;color:#ded4e2}
+.footer-links{display:flex;flex-direction:column;gap:7px}
+.copyright{text-align:center;padding:17px;border-top:1px solid #ffffff20;color:#cfc2d4;font-size:11px}
+.overlay{display:none;position:fixed;inset:0;background:#140b19bb;z-index:30}
+.overlay.show{display:block}
+.drawer{position:absolute;right:0;top:0;height:100%;width:min(450px,100%);background:white;padding:20px;display:flex;flex-direction:column}
+.drawer-header{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);padding-bottom:14px}
+.drawer-header h2{margin:0;font-size:22px}
+.close{width:36px;height:36px;border:0;border-radius:50%;background:#f4eff4;font-size:23px}
+.cart-items{overflow:auto;flex:1;padding:12px 0}
+.cart-item{display:grid;grid-template-columns:65px 1fr auto;gap:10px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+.cart-item img{width:65px;height:70px;object-fit:cover;border-radius:8px}
+.cart-item b{font-size:12px;line-height:1.5}
+.cart-item small{display:block;color:var(--muted);margin-top:5px}
+.quantity{display:flex;align-items:center;gap:9px;margin-top:7px}
+.quantity button{width:25px;height:25px;border:1px solid var(--line);background:white;border-radius:5px}
+.remove{border:0;background:transparent;color:#b34455;font-size:11px;margin-top:5px}
+.total{display:flex;justify-content:space-between;border-top:1px solid var(--line);padding:15px 0;font-weight:bold}
+.checkout-toggle{width:100%;border:0;background:var(--dark);color:white;border-radius:8px;padding:14px;font-weight:bold}
+.checkout{display:none;overflow:auto;padding-top:12px}
+.checkout.show{display:block}
+.checkout h3{margin:10px 0 14px}
+.field{display:block;width:100%;padding:12px;border:1px solid #e5dce6;border-radius:8px;margin-bottom:10px;outline-color:var(--purple)}
+textarea.field{min-height:65px;resize:vertical}
+.whatsapp{width:100%;padding:14px;border:0;border-radius:8px;background:#16884f;color:white;font-weight:bold}
+.note{font-size:11px;line-height:1.6;color:var(--muted)}
+.toast{display:none;position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:50;background:var(--dark);color:white;border-radius:25px;padding:12px 19px;font-size:13px;text-align:center;max-width:90%}
+.toast.show{display:block}
+@media(max-width:850px){
+ .header{flex-wrap:wrap;gap:12px;padding:12px 14px}
+ .brand{flex:1}.search{order:3;flex-basis:100%}
+ .hero{grid-template-columns:1fr}
+ .hero-copy{padding:35px 25px}
+ .hero-photo{min-height:220px;height:220px}
+ .hero-photo:after{background:linear-gradient(0deg,var(--dark),transparent 75%)}
+ .benefits{grid-template-columns:repeat(2,1fr)}
+ .categories{grid-template-columns:repeat(4,1fr)}
+ .products{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+ .product-photo{height:190px}
+ main{padding:14px}
+ .footer-grid{grid-template-columns:1fr 1fr}
+ .footer-grid>div:first-child{grid-column:1/-1}
+}
+@media(max-width:430px){
+ .brand{min-width:0}.brand strong{font-size:16px}
+ .cart-button{padding:9px;font-size:12px}
+ .categories{grid-template-columns:repeat(3,1fr);gap:9px}
+ .category{padding:13px 5px}
+ .category-icon{width:49px;height:49px}
+ .product-photo{height:155px}
+ .product-info{padding:10px}
+ .product h3{font-size:12px}
+ .price{font-size:16px}
+ .section-heading h2{font-size:22px}
+ .promo{display:block;padding:24px}
+ .footer-grid{grid-template-columns:1fr}
+ .footer-grid>div:first-child{grid-column:auto}
+}
+</style>
+</head>
+<body>
+<div class="announcement">✦ আবেগী স্বপ্নে আপনাকে স্বাগতম — কেনাকাটা হোক আনন্দময় ✦</div>
 
-### নতুন ডিজাইনে যা থাকবে
+<header>
+  <div class="header">
+    <a class="brand" href="#">
+      <span class="logo">আ</span>
+      <span><strong>আবেগী স্বপ্ন</strong><small>YOUR DREAM STORE</small></span>
+    </a>
+    <form class="search" id="searchForm">
+      <input id="searchInput" type="search" placeholder="পণ্যের নাম লিখে খুঁজুন..." aria-label="পণ্য খুঁজুন">
+      <button type="submit">খুঁজুন</button>
+    </form>
+    <button class="cart-button" id="openCart">🛍 কার্ট <span class="count" id="cartCount">0</span></button>
+  </div>
+  <nav><div class="nav">
+    <a href="#">হোম</a><a href="#categories">ক্যাটাগরি</a><a href="#products">সব পণ্য</a><a href="#offer">বিশেষ আয়োজন</a><a href="#footer">যোগাযোগ</a>
+  </div></nav>
+</header>
 
-![e-commerce store
- – Ovo signature](https://images.openai.com/static-rsc-4/C5qeZMIRjyfd1FR0XugUrM7rVEcvKyIt62SDIH7hWzAfQh_fsHyhmBnJBC4-5j3ad1KObXYJ2qP8zvfKbYIIrUQV3WKvPNMLqnVwvByqE8-km2lApUGY3veWS5WitbhVQJDmvBdvA96-ESYDwY4pMw4val36W_hscoeRrUSeHHcn_EPhCwwL-of3Y-jYPfv1?purpose=fullsize)
+<main>
+  <section class="hero">
+    <div class="hero-copy">
+      <div class="kicker">A LITTLE LOVE IN EVERY ORDER</div>
+      <h1>আপনার পছন্দের<br>সবকিছু এক জায়গায়</h1>
+      <p>ফ্যাশন, সৌন্দর্য, প্রযুক্তি ও প্রিয়জনের জন্য উপহার—আপনার পছন্দের কালেকশন খুঁজে নিন আবেগী স্বপ্নে।</p>
+      <a class="gold-button" href="#products">কেনাকাটা শুরু করুন ↗</a>
+    </div>
+    <div class="hero-photo">
+      <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1100&q=85" alt="ফ্যাশন শপ">
+    </div>
+  </section>
 
-প্রিমিয়াম হোমপেজ
+  <section class="benefits">
+    <div class="benefit"><span class="icon">🚚</span><span><b>সহজ অর্ডার</b><small>সহজেই অর্ডার দিন</small></span></div>
+    <div class="benefit"><span class="icon">💝</span><span><b>পছন্দের কালেকশন</b><small>বিভিন্ন ধরনের পণ্য</small></span></div>
+    <div class="benefit"><span class="icon">💬</span><span><b>সরাসরি যোগাযোগ</b><small>WhatsApp অর্ডার</small></span></div>
+    <div class="benefit"><span class="icon">✨</span><span><b>নতুন পণ্য</b><small>আকর্ষণীয় কালেকশন</small></span></div>
+  </section>
 
-“আবেগী স্বপ্নে আপনাকে স্বাগতম”, সুন্দর ব্যানার, সার্চ বক্স ও পণ্য দেখার বোতাম।
+  <section id="categories">
+    <div class="section-heading"><div><h2>ক্যাটাগরি অনুযায়ী কিনুন</h2><p>আপনার পছন্দের বিভাগ বেছে নিন</p></div></div>
+    <div class="categories" id="categoryList">
+      <button class="category active" data-category="সব"><span class="category-icon">✦</span><b>সব পণ্য</b></button>
+      <button class="category" data-category="পোশাক"><span class="category-icon">👗</span><b>পোশাক</b></button>
+      <button class="category" data-category="ব্যাগ"><span class="category-icon">👜</span><b>ব্যাগ</b></button>
+      <button class="category" data-category="জুতা"><span class="category-icon">👟</span><b>জুতা</b></button>
+      <button class="category" data-category="কসমেটিকস"><span class="category-icon">💄</span><b>কসমেটিকস</b></button>
+      <button class="category" data-category="গিফট"><span class="category-icon">🎁</span><b>গিফট</b></button>
+      <button class="category" data-category="ইলেকট্রনিকস"><span class="category-icon">🎧</span><b>ইলেকট্রনিকস</b></button>
+    </div>
+  </section>
 
-![Mykiya | Shop Electronics, Fashion & Groceries | Sell & Grow Your Business](https://images.openai.com/static-rsc-4/1f0-yZHJa3AlmXgDhTPHM66gWGyMh-6RaA0MDPy4RyeVt9wEA_l1bVJV68aw3fO-VkL0K0I65e5AtSgQWpGtnvxoGgMScvQEaCDWlROPONbwqzX8Dcqk5MBd_C3LwUSRajbJKTxpO0H-cSc3GPBM7cstuv4yfTH8gLrt1EowzZ4EK5njOmCAn_mfXIk_2zhP?purpose=fullsize)
+  <section id="products">
+    <div class="section-heading"><div><h2>আমাদের কালেকশন</h2><p>আপনার জন্য বাছাই করা পণ্য</p></div></div>
+    <div class="filters" id="filters">
+      <button class="filter active" data-category="সব">সব পণ্য</button>
+      <button class="filter" data-category="পোশাক">পোশাক</button>
+      <button class="filter" data-category="ব্যাগ">ব্যাগ</button>
+      <button class="filter" data-category="জুতা">জুতা</button>
+      <button class="filter" data-category="কসমেটিকস">কসমেটিকস</button>
+      <button class="filter" data-category="গিফট">গিফট</button>
+      <button class="filter" data-category="ইলেকট্রনিকস">ইলেকট্রনিকস</button>
+      <select id="sort" aria-label="দাম অনুযায়ী সাজান">
+        <option value="featured">জনপ্রিয় পণ্য</option>
+        <option value="low">দাম: কম থেকে বেশি</option>
+        <option value="high">দাম: বেশি থেকে কম</option>
+      </select>
+    </div>
+    <div class="products" id="productGrid"></div>
+  </section>
 
-৭টি পণ্যের বিভাগ
+  <section class="promo" id="offer">
+    <div><h2>প্রিয়জনের জন্য ছোট্ট উপহার 💝</h2><p>বিশেষ কাউকে খুশি করতে বেছে নিন আপনার পছন্দের উপহার।<br>অর্ডারের আগে পণ্যের দাম ও স্টক নিশ্চিত করে নিন।</p></div>
+    <a class="gold-button" href="#products">কালেকশন দেখুন →</a>
+  </section>
+</main>
 
-জামাকাপড়, ব্যাগ, জুতা, কসমেটিকস, গিফট, ইলেকট্রনিকস ও অন্যান্য পণ্য।
+<footer id="footer">
+  <div class="footer-grid">
+    <div><h3>আবেগী স্বপ্ন</h3><p>আপনার পছন্দের পণ্য কেনাকাটার অনলাইন ঠিকানা। নতুন পণ্য ও অর্ডারের তথ্য জানতে আমাদের সঙ্গে যোগাযোগ করুন।</p><p>Facebook Page: আবেগী স্বপ্ন</p></div>
+    <div><h3>দ্রুত লিংক</h3><div class="footer-links"><a href="#">হোম</a><a href="#categories">ক্যাটাগরি</a><a href="#products">সব পণ্য</a><a href="#offer">বিশেষ আয়োজন</a></div></div>
+    <div><h3>কাস্টমার সাপোর্ট</h3><div class="footer-links"><a href="#products">পণ্য দেখুন</a><a href="#footer">যোগাযোগ</a><a href="#products" id="footerCart">কার্ট ও অর্ডার</a></div><p>অর্ডার ও ডেলিভারি জানতে মেসেজ করুন।</p></div>
+  </div>
+  <div class="copyright">© <span id="year"></span> আবেগী স্বপ্ন। সর্বস্বত্ব সংরক্ষিত।</div>
+</footer>
 
-![Ecommerce Mobile App Home, Product Details UI :: Behance](https://images.openai.com/static-rsc-4/XGr6C6Yspg0vAv0RJWpTt3HAQwIgbjsDpvauy-gkTDyAfMct2JsyQ_j5bAaw0AOqO6R4Zpun4COICWVG3xYF8-AWGg-iN0KFz8laHvJtDNF7CCadQex9aGis6zYPWV6m7RTMb6PW2jHNF-ZniVywkBowSJLVphkeEO4LDNNjztH1YOy92lGTkiYIEI0HzXL7?purpose=fullsize)
+<div class="overlay" id="overlay">
+  <aside class="drawer" role="dialog" aria-modal="true" aria-label="শপিং কার্ট">
+    <div class="drawer-header"><h2>আপনার কার্ট 🛍</h2><button class="close" id="closeCart" aria-label="বন্ধ করুন">×</button></div>
+    <div class="cart-items" id="cartItems"></div>
+    <div class="total"><span>সর্বমোট</span><span id="cartTotal">৳০</span></div>
+    <button class="checkout-toggle" id="checkoutToggle">অর্ডার করতে এগিয়ে যান</button>
+    <form class="checkout" id="checkoutForm">
+      <h3>ডেলিভারির তথ্য</h3>
+      <input class="field" id="customerName" placeholder="আপনার নাম" required>
+      <input class="field" id="customerPhone" type="tel" inputmode="tel" placeholder="মোবাইল নম্বর" required>
+      <textarea class="field" id="customerAddress" placeholder="সম্পূর্ণ ডেলিভারি ঠিকানা" required></textarea>
+      <textarea class="field" id="customerNote" placeholder="অতিরিক্ত নির্দেশনা (ঐচ্ছিক)"></textarea>
+      <button class="whatsapp" type="submit">WhatsApp-এ অর্ডার পাঠান</button>
+      <p class="note">আপনার WhatsApp-এ অর্ডারের বার্তা তৈরি হবে। অর্ডার পাঠাতে সেখানে Send চাপুন।</p>
+    </form>
+  </aside>
+</div>
+<div class="toast" id="toast"></div>
 
-কার্ট ও অর্ডার ব্যবস্থা
+<script>
+"use strict";
 
-পণ্য খোঁজা, কার্টে যোগ করা, মোট দাম হিসাব, নাম-ফোন-ঠিকানা দিয়ে অর্ডার এবং WhatsApp-এ পাঠানোর ব্যবস্থা।
+/* নিজের WhatsApp নম্বর বসান।
+   উদাহরণ: 01712345678 হলে লিখুন 8801712345678 */
+const WHATSAPP_NUMBER = "8801XXXXXXXXX";
 
-একটি গুরুত্বপূর্ণ বিষয়: আপাতত নমুনা পণ্য থাকবে। আসল পণ্যের ছবি, দাম ও আপনার দোকানের WhatsApp নম্বর বসানোর পরেই ক্রেতাদের কাছে অর্ডার নেওয়ার জন্য প্রস্তুত হবে। ওয়েবসাইটে অর্ডার ফর্ম থাকলেই অর্ডারের তথ্য স্বয়ংক্রিয়ভাবে সংরক্ষিত হয় না—সেটির জন্য পরে আলাদা ব্যবস্থা লাগতে পারে।
+/* এগুলো নমুনা পণ্য ও দাম। বিক্রির আগে নিজের পণ্য, ছবি ও দাম বসান। */
+const products = [
+ {id:1,name:"এলিগ্যান্ট ফ্যাশন ড্রেস",category:"পোশাক",price:1250,old:1500,tag:"নতুন",image:"https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=700&q=80"},
+ {id:2,name:"ক্লাসিক লেডিস ব্যাগ",category:"ব্যাগ",price:890,old:1100,tag:"জনপ্রিয়",image:"https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=700&q=80"},
+ {id:3,name:"স্টাইলিশ স্নিকার্স",category:"জুতা",price:1450,old:1700,tag:"ট্রেন্ডিং",image:"https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=700&q=80"},
+ {id:4,name:"বিউটি মেকআপ সেট",category:"কসমেটিকস",price:750,old:900,tag:"নতুন",image:"https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&w=700&q=80"},
+ {id:5,name:"প্রিমিয়াম গিফট বক্স",category:"গিফট",price:650,old:800,tag:"উপহার",image:"https://images.unsplash.com/photo-1513201099705-a9746e1e201f?auto=format&fit=crop&w=700&q=80"},
+ {id:6,name:"ওয়্যারলেস হেডফোন",category:"ইলেকট্রনিকস",price:1350,old:1600,tag:"জনপ্রিয়",image:"https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=700&q=80"},
+ {id:7,name:"মিনিমাল হ্যান্ডব্যাগ",category:"ব্যাগ",price:1050,old:1250,tag:"নতুন",image:"https://images.unsplash.com/photo-1590874103328-eac38a683ce7?auto=format&fit=crop&w=700&q=80"},
+ {id:8,name:"ক্যাজুয়াল আউটফিট",category:"পোশাক",price:980,old:1200,tag:"স্টাইল",image:"https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=700&q=80"}
+];
 
-### ধাপ ১ — নতুন কোড কপি করুন
+let activeCategory = "সব";
+let searchTerm = "";
+let cart = [];
 
-আপনার বর্তমান ওয়েবসাইটের `index.html` ফাইলটি সম্পূর্ণ বদলে নিচের নতুন ডিজাইনটি বসাব।
+const $ = id => document.getElementById(id);
+const money = n => "৳" + Number(n).toLocaleString("en-US");
+const safe = s => String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 
-এই সংস্করণে থাকবে প্রিমিয়াম বেগুনি-গোলাপি ডিজাইন, মোবাইল-ফ্রেন্ডলি পণ্য কার্ড, বিভাগ অনুযায়ী ফিল্টার, সার্চ, কার্ট, মোট দাম এবং অর্ডার ফর্ম।
+function showToast(message){
+  $("toast").textContent=message;
+  $("toast").classList.add("show");
+  clearTimeout(showToast.timer);
+  showToast.timer=setTimeout(()=>$("toast").classList.remove("show"),2400);
+}
 
-Abegi Shop — নতুন ওয়েবসাইট কোড
+function renderProducts(){
+  let list=products.filter(p=>
+    (activeCategory==="সব"||p.category===activeCategory)&&
+    (p.name+" "+p.category).toLowerCase().includes(searchTerm.toLowerCase())
+  );
+  if($("sort").value==="low") list.sort((a,b)=>a.price-b.price);
+  if($("sort").value==="high") list.sort((a,b)=>b.price-a.price);
 
-সম্পূর্ণ HTML, CSS ও JavaScript এক ফাইলে
+  $("productGrid").innerHTML=list.length?list.map(p=>`
+    <article class="product">
+      <div class="product-photo">
+        <img src="${p.image}" alt="${safe(p.name)}" loading="lazy">
+        <span class="tag">${safe(p.tag)}</span>
+      </div>
+      <div class="product-info">
+        <div class="product-category">${safe(p.category)}</div>
+        <h3>${safe(p.name)}</h3>
+        <div class="price">${money(p.price)} <span class="old-price">${money(p.old)}</span></div>
+        <button class="add-button" data-add="${p.id}">＋ কার্টে যোগ করুন</button>
+      </div>
+    </article>`).join(""):'<div class="empty">দুঃখিত, এই নামে কোনো পণ্য পাওয়া যায়নি। অন্য নাম দিয়ে খুঁজুন।</div>';
+}
+
+function setCategory(category){
+  activeCategory=category;
+  document.querySelectorAll("[data-category]").forEach(b=>
+    b.classList.toggle("active",b.dataset.category===category)
+  );
+  renderProducts();
+}
+
+document.querySelectorAll("[data-category]").forEach(b=>{
+  b.addEventListener("click",()=>{
+    setCategory(b.dataset.category);
+    if(b.closest("#categoryList")) $("products").scrollIntoView({behavior:"smooth"});
+  });
+});
+
+$("searchForm").addEventListener("submit",e=>{
+  e.preventDefault();
+  searchTerm=$("searchInput").value.trim();
+  renderProducts();
+  $("products").scrollIntoView({behavior:"smooth"});
+});
+$("searchInput").addEventListener("input",()=>{
+  searchTerm=$("searchInput").value.trim();
+  renderProducts();
+});
+$("sort").addEventListener("change",renderProducts);
+
+$("productGrid").addEventListener("click",e=>{
+  const button=e.target.closest("[data-add]");
+  if(!button)return;
+  const id=Number(button.dataset.add);
+  const item=cart.find(p=>p.id===id);
+  if(item)item.qty++;
+  else cart.push({...products.find(p=>p.id===id),qty:1});
+  renderCart();
+  showToast("পণ্যটি আপনার কার্টে যোগ হয়েছে ❤️");
+});
+
+function renderCart(){
+  const count=cart.reduce((sum,p)=>sum+p.qty,0);
+  const total=cart.reduce((sum,p)=>sum+p.price*p.qty,0);
+  $("cartCount").textContent=count;
+  $("cartTotal").textContent=money(total);
+  $("cartItems").innerHTML=cart.length?cart.map(p=>`
+    <div class="cart-item">
+      <img src="${p.image}" alt="${safe(p.name)}">
+      <div><b>${safe(p.name)}</b><small>${money(p.price)} × ${p.qty}</small>
+        <div class="quantity">
+          <button data-qty="${p.id}" data-change="-1" aria-label="একটি কমান">−</button>
+          <span>${p.qty}</span>
+          <button data-qty="${p.id}" data-change="1" aria-label="একটি বাড়ান">+</button>
+        </div>
+      </div>
+      <div><b>${money(p.price*p.qty)}</b><br><button class="remove" data-remove="${p.id}">মুছুন</button></div>
+    </div>`).join(""):'<div class="empty">আপনার কার্ট এখনো খালি।<br><br>পছন্দের পণ্য কার্টে যোগ করুন।</div>';
+  $("checkoutToggle").disabled=!cart.length;
+  $("checkoutToggle").style.opacity=cart.length?1:.5;
+}
+
+$("cartItems").addEventListener("click",e=>{
+  const q=e.target.closest("[data-qty]");
+  const r=e.target.closest("[data-remove]");
+  if(q){
+    const p=cart.find(p=>p.id===Number(q.dataset.qty));
+    if(p)p.qty+=Number(q.dataset.change);
+    cart=cart.filter(p=>p.qty>0);
+    renderCart();
+  }
+  if(r){
+    cart=cart.filter(p=>p.id!==Number(r.dataset.remove));
+    renderCart();
+  }
+});
+
+function openCart(){$("overlay").classList.add("show")}
+function closeCart(){$("overlay").classList.remove("show")}
+$("openCart").addEventListener("click",openCart);
+$("closeCart").addEventListener("click",closeCart);
+$("overlay").addEventListener("click",e=>{if(e.target===$("overlay"))closeCart()});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeCart()});
+$("footerCart").addEventListener("click",e=>{e.preventDefault();openCart()});
+
+$("checkoutToggle").addEventListener("click",()=>{
+  if(!cart.length)return;
+  $("checkoutForm").classList.toggle("show");
+  if($("checkoutForm").classList.contains("show"))
+    $("checkoutForm").scrollIntoView({behavior:"smooth",block:"nearest"});
+});
+
+$("checkoutForm").addEventListener("submit",e=>{
+  e.preventDefault();
+  if(!cart.length){showToast("আগে কার্টে পণ্য যোগ করুন।");return}
+  if(WHATSAPP_NUMBER.includes("X")||!/^8801[3-9]\d{8}$/.test(WHATSAPP_NUMBER)){
+    showToast("আগে কোডে নিজের WhatsApp নম্বর বসান।");
+    return;
+  }
+
+  const name=$("customerName").value.trim();
+  const phone=$("customerPhone").value.trim();
+  const address=$("customerAddress").value.trim();
+  const note=$("customerNote").value.trim();
+  const total=cart.reduce((sum,p)=>sum+p.price*p.qty,0);
+  const lines=cart.map(p=>`${p.name} × ${p.qty} = ${money(p.price*p.qty)}`).join("\n");
+  const message=
+`আবেগী স্বপ্নে নতুন অর্ডার
+------------------------
+নাম: ${name}
+মোবাইল: ${phone}
+ঠিকানা: ${address}
+
+অর্ডারের বিবরণ:
+${lines}
+
+মোট পণ্যের দাম: ${money(total)}
+ডেলিভারি চার্জ: আলোচনা সাপেক্ষে
+${note?"অতিরিক্ত নির্দেশনা: "+note:""}
+
+অনুগ্রহ করে অর্ডারটি নিশ্চিত করুন।`;
+
+  const url="https://wa.me/"+WHATSAPP_NUMBER+"?text="+encodeURIComponent(message);
+  window.open(url,"_blank","noopener,noreferrer");
+});
+
+$("year").textContent=new Date().getFullYear();
+renderProducts();
+renderCart();
+</script>
+</body>
+</html>
